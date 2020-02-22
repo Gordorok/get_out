@@ -62,6 +62,17 @@
         });
         InfectedArea.setMap(map);
 
+        fetch('/getPos')
+        .then(response => response.json())
+        .then((data) => {
+          console.log(data)
+          data.forEach((zombie) =>{
+            var posini = new google.maps.LatLng(zombie.latitudeZ, zombie.longitudeZ);
+            var zombini = new google.maps.Marker({position: posini, map: map});
+        console.log(zombie.latitude)
+      })
+        })
+
         if (navigator.geolocation) {
 
           navigator.geolocation.getCurrentPosition(function(position) {
