@@ -37,6 +37,30 @@
           //marker = new google.maps.Marker({position: event.latLng, map: map})
         });
 
+
+
+
+        //infected area in red
+        // Define the LatLng coordinates for the polygon's path.
+        var RectCoords = [
+          {lat: 50.84742762994356, lng: 3.1701154653811203},
+          {lat: 50.78680113991122, lng: 3.1701154653811203},
+          {lat: 50.78680113991122, lng: 3.335768694140886},
+          {lat:  50.84742762994356, lng: 3.335768694140886}
+        ];
+
+        // Construct the polygon.
+        var InfectedArea = new google.maps.Polygon({
+          paths: RectCoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+        InfectedArea.setMap(map);
+
+
         google.maps.event.addListener(map, 'click', function(event) {
         if (low_limit <= event.latLng.lat()&& event.latLng.lat() <= high_limit && left_limit<=event.latLng.lng() && event.latLng.lng()<=right_limit ){
           marker = new google.maps.Marker({position: event.latLng, map: map});  
