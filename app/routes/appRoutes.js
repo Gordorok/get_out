@@ -12,8 +12,13 @@ module.exports = function(app) {
 		res.render(__dirname + '/map');
 
 	});
-	app.post('/add', function(req, res) {
-		sql.query("INSERT INTO pos_zombie (ID, latitude, longitude, time) value ( NULL, '"+req.body.lat+"','"+req.body.long+"', CURRENT_TIMESTAMP)");
+	app.post('/addZ', function(req, res) {
+		sql.query("INSERT INTO pos_zombie (ID, latitudeZ, longitudeZ, time) value ( NULL, '"+req.body.lat+"','"+req.body.long+"', CURRENT_TIMESTAMP)");
+		console.log(req.body);
+	});
+
+	app.post('/addH', function(req, res) {
+		sql.query("INSERT INTO pos_human (ID, latitudeH, longitudeH, time, username) value ( NULL, '"+req.body.lat+"','"+req.body.long+"', CURRENT_TIMESTAMP, NULL)");
 		console.log(req.body);
 	});
 
