@@ -22,7 +22,7 @@
     <div id="map"></div>
     <script>
       var map;
-      var cam;
+
       var tab_zombie = new Map();
       var zomb_conteur = 0;
       var low_limit = 50.78680113991122;
@@ -36,10 +36,9 @@
           zoom: 17,
           //marker = new google.maps.Marker({position: event.latLng, map: map})
         });
+
         google.maps.event.addListener(map, 'click', function(event) {
-
-
-        if (low_limit <= event.latLng.lat() <= high_limit && left_limit<=event.latLng.lng()<=right_limit ){
+        if (low_limit <= event.latLng.lat()&& event.latLng.lat() <= high_limit && left_limit<=event.latLng.lng() && event.latLng.lng()<=right_limit ){
           marker = new google.maps.Marker({position: event.latLng, map: map});  
           alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
           zomb_conteur = zomb_conteur +1 ;
