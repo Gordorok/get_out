@@ -9,4 +9,7 @@ module.exports = function(app) {
 		res.setHeader('Content-Type', 'text/html');
 		res.render(__dirname + '/map', {Geo: 'LOL'});
 	});
+	app.post('/add', function(req, res) {
+		console.log(req.body);
+	});
 };

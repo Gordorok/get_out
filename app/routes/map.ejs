@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
+<head>
+  <title>Simple Map</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
       /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+      * element that contains the map. */
       #map {
         height: 100%;
       }
@@ -21,10 +21,15 @@
   <body>
     <div id="map"></div>
     <script>
+      const Url='localhost:3000/add'
+      const data={
+        name:"Said",
+        id:23
+      }
       var map;
-
       var tab_zombie = new Map();
       var zomb_conteur = 0;
+      var choix = 0; //Détermine si on place des zombies ou des survivants O pour Survivant et 1 pour Zombies
       var low_limit = 50.78680113991122;
       var high_limit = 50.84742762994356;
       var left_limit = 3.1701154653811203;
@@ -36,34 +41,38 @@
           zoom: 17,
           //marker = new google.maps.Marker({position: event.latLng, map: map})
         });
+        if(choix==0){
+          google.maps.event.addListener(map, 'click', function(event) {
+            if (low_limit <= event.latLng.lat()&& event.latLng.lat() <= high_limit && left_limit<=event.latLng.lng() && event.latLng.lng()<=right_limit ){
+              marker = new google.maps.Marker({position: event.latLng, map: map});  
+              alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+              zomb_conteur = zomb_conteur +1 ;
+              tab_zombie.set('id',zomb_conteur);
+              tab_zombie.set('PosX',event.latLng.lat());
+              tab_zombie.set('PosY',event.latLng.lng());
+              fetch('/add',{
+                method: 'post',
+                // Adding body or contents to send 
+                body: JSON.stringify({ 
+                  lat: event.latLng.lat(), 
+                  long: event.latLng.lng()
+                }), 
 
-        google.maps.event.addListener(map, 'click', function(event) {
-        if (low_limit <= event.latLng.lat()&& event.latLng.lat() <= high_limit && left_limit<=event.latLng.lng() && event.latLng.lng()<=right_limit ){
-          marker = new google.maps.Marker({position: event.latLng, map: map});  
-          alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
-          zomb_conteur = zomb_conteur +1 ;
-          tab_zombie.set('id',zomb_conteur);
-          tab_zombie.set('PosX',event.latLng.lat());
-          tab_zombie.set('PosY',event.latLng.lng());
-          alert("PosX"+zomb_conteur+" " + event.latLng.lat() + " " + " PosY"+" "+zomb_conteur+event.latLng.lng())
+    // Adding headers to the request 
+    headers: { 
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+              alert("PosX"+zomb_conteur+" " + event.latLng.lat() + " " + " PosY"+" "+zomb_conteur+event.latLng.lng())
+            }
+            else{
+              alert("Select a location inside the Isolation Zone");
+            }       
+          });       
         }
-        else{
-          alert("Select a location inside the Isolation Zone");
-          
-        }
-        
-        
-        
-
-        
-
-        });
-        
       }
-
-      
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7eujFSmk1O6fY7hOu3CyKD5sZryCNJUo&callback=initMap"
     async defer></script>
   </body>
-</html>
+  </html>
