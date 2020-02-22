@@ -7,6 +7,6 @@ module.exports = function(app) {
 	});
 	app.get('/map', function(req, res) {
 		res.setHeader('Content-Type', 'text/html');
-		res.render(__dirname + '/map', {Geo: 'LOL'});
+		res.render(__dirname + '/mapBobo', {Geo: 'LOL'});
 	});
 };
