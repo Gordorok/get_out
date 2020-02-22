@@ -7,6 +7,9 @@ module.exports = function(app) {
 		res.setHeader('Content-Type', 'text/plain');
 		res.send('Vous êtes à l\'accueil');
 	});
+	app.get('/chat', function (req, res) {
+		res.sendFile(__dirname + '/chat.html');
+	});
 	app.get('/map', function(req, res) {
 		res.setHeader('Content-Type', 'text/html');
 		res.render(__dirname + '/map');
