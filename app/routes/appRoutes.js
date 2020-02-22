@@ -11,6 +11,7 @@ module.exports = function(app) {
 		res.render(__dirname + '/map', {Geo: 'LOL'});
 	});
 	app.post('/add', function(req, res) {
+		sql.query("INSERT INTO pos_zombie (ID, latitude, longitude, time) value ( NULL, '"+req.body.lat+"','"+req.body.long+"', CURRENT_TIMESTAMP)");
 		console.log(req.body);
 	});
 };
